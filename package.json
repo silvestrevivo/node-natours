@@ -1,0 +1,22 @@
+{
+  "name": "node-natours",
+  "version": "1.0.0",
+  "description": "NodeJS application following the Udemy Tutorial from @jonasschmedtmann",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silvestrevivo/node-natours.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "@silvestrevivo",
+  "license": "ISC",
+  "readme": "https://github.com/silvestrevivo/node-natours#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
