@@ -22,15 +22,15 @@ const tours = JSON.parse(
 );
 
 // GET requests
-app.get('/api/v1/tours', (req, res) => {
+const getAllTours = (req, res) => {
   res.status(200).json({
     status: 'success',
     results: tours.length,
     data: { tours },
   });
-});
+};
 
-app.get('/api/v1/tours/:id', (req, res) => {
+const getTour = (req, res) => {
   const tour = tours.find(el => el.id === parseInt(req.params.id, 10));
 
   // 404 => object not found, not exists in the server
@@ -44,10 +44,10 @@ app.get('/api/v1/tours/:id', (req, res) => {
     status: 'success',
     data: { tour },
   });
-});
+};
 
 // POST requests
-app.post('/api/v1/tours', (req, res) => {
+const createTour = (req, res) => {
   const newId = tours[tours.length - 1].id + 1;
   const newTour = Object.assign({ id: newId }, req.body);
 
@@ -64,10 +64,10 @@ app.post('/api/v1/tours', (req, res) => {
       });
     }
   );
-});
+};
 
 // PATCH requests
-app.patch('/api/v1/tours/:id', (req, res) => {
+const updateTour = (req, res) => {
   const tour = tours.find(el => el.id === parseInt(req.params.id, 10));
 
   // 404 => object not found, not exists in the server
@@ -83,10 +83,10 @@ app.patch('/api/v1/tours/:id', (req, res) => {
       tour: '<Data updated />',
     },
   });
-});
+};
 
 // DELETE requests
-app.delete('/api/v1/tours/:id', (req, res) => {
+const deleteTour = (req, res) => {
   const tour = tours.find(el => el.id === parseInt(req.params.id, 10));
 
   // 404 => object not found, not exists in the server
@@ -100,7 +100,19 @@ app.delete('/api/v1/tours/:id', (req, res) => {
     status: 'success',
     data: null,
   });
-});
+};
+
+//* REQUESTS
+app
+  .route('/api/v1/tours')
+  .get(getAllTours)
+  .post(createTour);
+
+app
+  .route('/api/v1/tours/:id')
+  .get(getTour)
+  .patch(updateTour)
+  .delete(deleteTour);
 
 const port = 3000;
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
