@@ -4,7 +4,7 @@
   "description": "NodeJS application following the Udemy Tutorial from @jonasschmedtmann",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
