@@ -5,6 +5,10 @@ const app = express();
 
 // Middlewares
 app.use(express.json()); //make posible to read json data from req.body
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
 
 //* URL's
 app.get('/', (req, res) => {
@@ -25,6 +29,7 @@ const tours = JSON.parse(
 const getAllTours = (req, res) => {
   res.status(200).json({
     status: 'success',
+    requestedAt: req.requestTime,
     results: tours.length,
     data: { tours },
   });
