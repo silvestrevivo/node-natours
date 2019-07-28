@@ -1,9 +1,11 @@
 const fs = require('fs');
+const morgan = require('morgan');
 const express = require('express');
 
 const app = express();
 
 // Middlewares
+app.use(morgan('dev'));
 app.use(express.json()); //make posible to read json data from req.body
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -51,6 +53,20 @@ const getTour = (req, res) => {
   });
 };
 
+const getAllUsers = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet define',
+  });
+};
+
+const getUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet define',
+  });
+};
+
 // POST requests
 const createTour = (req, res) => {
   const newId = tours[tours.length - 1].id + 1;
@@ -69,6 +85,13 @@ const createTour = (req, res) => {
       });
     }
   );
+};
+
+const createUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet define',
+  });
 };
 
 // PATCH requests
@@ -90,6 +113,13 @@ const updateTour = (req, res) => {
   });
 };
 
+const updateUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet define',
+  });
+};
+
 // DELETE requests
 const deleteTour = (req, res) => {
   const tour = tours.find(el => el.id === parseInt(req.params.id, 10));
@@ -107,17 +137,39 @@ const deleteTour = (req, res) => {
   });
 };
 
+const deleteUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet define',
+  });
+};
+
 //* REQUESTS
-app
-  .route('/api/v1/tours')
+const tourRouter = express.Router();
+app.use('/api/v1/tours', tourRouter);
+tourRouter
+  .route('/')
   .get(getAllTours)
   .post(createTour);
 
-app
-  .route('/api/v1/tours/:id')
+tourRouter
+  .route('/:id')
   .get(getTour)
   .patch(updateTour)
   .delete(deleteTour);
+
+const userRouter = express.Router();
+app.use('/api/v1/users', userRouter);
+userRouter
+  .route('/')
+  .get(getAllUsers)
+  .post(createUser);
+
+userRouter
+  .route('/:id')
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser);
 
 const port = 3000;
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
