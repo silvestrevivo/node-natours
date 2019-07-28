@@ -66,5 +66,41 @@ app.post('/api/v1/tours', (req, res) => {
   );
 });
 
+// PATCH requests
+app.patch('/api/v1/tours/:id', (req, res) => {
+  const tour = tours.find(el => el.id === parseInt(req.params.id, 10));
+
+  // 404 => object not found, not exists in the server
+  if (!tour)
+    return res.status(404).json({
+      status: 'fail',
+      message: 'The tour with the given ID was not found.',
+    });
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour: '<Data updated />',
+    },
+  });
+});
+
+// DELETE requests
+app.delete('/api/v1/tours/:id', (req, res) => {
+  const tour = tours.find(el => el.id === parseInt(req.params.id, 10));
+
+  // 404 => object not found, not exists in the server
+  if (!tour)
+    return res.status(404).json({
+      status: 'fail',
+      message: 'The tour with the given ID was not found.',
+    });
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
+
 const port = 3000;
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
