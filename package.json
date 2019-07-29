@@ -4,7 +4,8 @@
   "description": "NodeJS application following the Udemy Tutorial from @jonasschmedtmann",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "prod": "NODE_ENV=production nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "license": "ISC",
   "readme": "https://github.com/silvestrevivo/node-natours#readme",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "morgan": "^1.9.1"
   },

@@ -6,7 +6,9 @@ const userRouter = require('./routes/userRouter');
 const app = express();
 
 // Middlewares
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 app.use(express.json()); //make posible to read json data from req.body
 app.use(express.static(`${__dirname}/public`));
 app.use((req, res, next) => {
