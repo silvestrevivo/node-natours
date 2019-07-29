@@ -6,6 +6,20 @@ const tours = JSON.parse(
   // this is data has to be available always, that's why is synchronous
 );
 
+//* Help functions
+let tour;
+exports.checkID = (req, res, next, val) => {
+  tour = tours.find(el => el.id === parseInt(req.params.id, 10));
+
+  // 404 => object not found, not exists in the server
+  if (!tour)
+    return res.status(404).json({
+      status: 'fail',
+      message: 'The tour with the given ID was not found.',
+    });
+  next();
+};
+
 // GET requests
 exports.getAllTours = (req, res) => {
   res.status(200).json({
@@ -17,15 +31,6 @@ exports.getAllTours = (req, res) => {
 };
 
 exports.getTour = (req, res) => {
-  const tour = tours.find(el => el.id === parseInt(req.params.id, 10));
-
-  // 404 => object not found, not exists in the server
-  if (!tour)
-    return res.status(404).json({
-      status: 'fail',
-      message: 'The tour with the given ID was not found.',
-    });
-
   res.status(200).json({
     status: 'success',
     data: { tour },
@@ -54,15 +59,6 @@ exports.createTour = (req, res) => {
 
 // PATCH requests
 exports.updateTour = (req, res) => {
-  const tour = tours.find(el => el.id === parseInt(req.params.id, 10));
-
-  // 404 => object not found, not exists in the server
-  if (!tour)
-    return res.status(404).json({
-      status: 'fail',
-      message: 'The tour with the given ID was not found.',
-    });
-
   res.status(200).json({
     status: 'success',
     data: {
@@ -73,15 +69,6 @@ exports.updateTour = (req, res) => {
 
 // DELETE requests
 exports.deleteTour = (req, res) => {
-  const tour = tours.find(el => el.id === parseInt(req.params.id, 10));
-
-  // 404 => object not found, not exists in the server
-  if (!tour)
-    return res.status(404).json({
-      status: 'fail',
-      message: 'The tour with the given ID was not found.',
-    });
-
   res.status(204).json({
     status: 'success',
     data: null,

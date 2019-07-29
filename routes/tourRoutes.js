@@ -7,9 +7,13 @@ const {
   getTour,
   updateTour,
   deleteTour,
+  checkID,
 } = tourController;
 
 const tourRouter = express.Router();
+
+// Middleware to get ID on every request
+tourRouter.param('id', checkID);
 
 tourRouter
   .route('/')
