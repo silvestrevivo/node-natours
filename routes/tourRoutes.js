@@ -8,6 +8,7 @@ const {
   updateTour,
   deleteTour,
   checkID,
+  checkBody,
 } = tourController;
 
 const tourRouter = express.Router();
@@ -18,7 +19,8 @@ tourRouter.param('id', checkID);
 tourRouter
   .route('/')
   .get(getAllTours)
-  .post(createTour);
+  .post(checkBody, createTour);
+//checkBody is a middleware onlu trigered on this post reques
 
 tourRouter
   .route('/:id')
